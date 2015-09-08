@@ -123,14 +123,12 @@ public class UPnpDevices {
                         try (MulticastSocket sendSocket = new MulticastSocket(null)) {
                             InetSocketAddress socketAddr = new InetSocketAddress(addr.getHostAddress(), port);
                             sendSocket.bind(socketAddr);
-                            //sendSocket.joinGroup(InetAddress.getByName(UPNP_MULTICAST_IP));
                             byte[] searchMessageBytes = searchMessage.getBytes();
-                            System.out.println("Sending out search packet on " + addr.getHostAddress());
                             DatagramPacket ssdpDiscoverPacket = new DatagramPacket(searchMessageBytes, searchMessageBytes.length, InetAddress.getByName(UPNP_MULTICAST_IP), UPNP_PORT);
                             sendSocket.send(ssdpDiscoverPacket);
                         }
                     } catch (BindException e) {
-                        System.out.println("Ignoring : " + addr.getHostAddress());
+                        // ignoring
                     }
                 }
             }
